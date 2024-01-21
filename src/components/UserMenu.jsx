@@ -2,7 +2,10 @@ import React, { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "./Avatar";
 import MenuItem from "./MenuItem";
+import {useDispatch} from 'react-redux'
+import { onClose,onOpen } from '../redux/slices/userSlice';
 const UserMenu = () => {
+  const dispatch=useDispatch()
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -31,8 +34,8 @@ const UserMenu = () => {
           <div className="flex flex-col cursor-pointer">
             <>
               <MenuItem onClick={()=>{alert("login")}} label={"Login"} />
-              <MenuItem onClick={()=>{alert("Signup")}} label={"Signup"} />
-              <MenuItem onClick={()=>{alert("Logout")}} label={"Logout"} />
+              <MenuItem onClick={onOpen} label={"Signup"} />
+              {/* <MenuItem onClick={()=>{alert("Logout")}} label={"Logout"} /> */}
             </>
           </div>
         </div>
