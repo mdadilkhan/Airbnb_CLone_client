@@ -14,7 +14,7 @@ const Modal = ({
   secondryAction,
   secondryActionLabel,
 }) => {
-  console.log(body);
+  console.log("footer",footer);
   const dispatch = useDispatch();
   const [showModal, setShwowModal] = useState(isOpen);
   useEffect(() => {
@@ -69,7 +69,7 @@ const Modal = ({
               <div className="relative p-6 flex-auto">
                 {body()}
               </div>
-              {/* footer */}
+           
               <div className="flex flex-col gap-2 p-6">
                 <div className="flex flex-row items-center gap-4 w-full">
                   {secondryAction && secondryActionLabel && (
@@ -87,6 +87,7 @@ const Modal = ({
                     onClick={handleSubmit}
                   />
                 </div>
+                {footer()}
               </div>
             </div>
           </div>

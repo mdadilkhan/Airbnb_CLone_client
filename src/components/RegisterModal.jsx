@@ -8,6 +8,8 @@ import { onClose,onOpen } from '../redux/slices/userSlice';
 import { useDispatch,useSelector } from 'react-redux';
 import Heading from './Heading';
 import Input from './Input';
+import toast from 'react-hot-toast';
+import Button from './Button';
 const RegisterModal = () => {
    const {isOpen} =useSelector((state)=>state.user);
    const [formData,setFormData]=useState({})
@@ -19,15 +21,16 @@ const RegisterModal = () => {
    }
 
 
-   const handleSubmit=(e)=>{
-      e.preventDefault();
+   const handleSubmit=()=>{
+    //   e.preventDefault();
       setIsLoading(true);
       axios.post(`${URL}/register`,formData)
       .then(()=>{
         // setIsLoading(false)
+        toast.success('Login SuccessFul')
       }).catch((error)=>{
         console.log(error);
-        // setIsLoading(true);
+        toast.error('something went wrong')
       }).finally(()=>{
         setIsLoading(false);
       })
@@ -65,6 +68,51 @@ const RegisterModal = () => {
         </div>
     )
   }
+  const footerContent = () => {
+    return (
+      <div className="flex flex-col gap-4 mt-3">
+        <hr />
+        <Button
+          outline
+          label="Continue With Google"
+          icon={FcGoogle}
+          onClick={() => {
+            alert("continue with google");
+          }}
+        />
+        <Button
+          outline
+          label="Continue With Github"
+          icon={AiFillGithub}
+          onClick={() => {
+            alert("continue with github");
+          }}
+        />
+        <div
+          className="
+          text-neutral-500 
+          text-center 
+          mt-4 
+          font-light
+        "
+        >
+          <p>
+            Already have an account?
+            <span
+              // onClick={onToggle}
+              className="
+              text-neutral-800
+              cursor-pointer 
+              hover:underline
+            "
+            >
+              Log in
+            </span>
+          </p>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <Modal 
@@ -75,6 +123,7 @@ const RegisterModal = () => {
       onClose={onClose} 
       onSubmit={handleSubmit}
       body={bodyContent}
+      footer={footerContent}
       /> 
      
   )

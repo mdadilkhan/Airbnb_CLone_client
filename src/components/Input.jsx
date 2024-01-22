@@ -7,9 +7,11 @@ const Input = ({
   disabled,
   formatPrice,
   required,
-  register,
-  error,
+//   register,
+//   error,
 }) => {
+
+    console.log(id,label,type,disabled,formatPrice,required);
   return (
     <div className="w-full relative">
       {formatPrice && (
@@ -43,7 +45,7 @@ const Input = ({
         disabled:opacity-70
         disabled:cursor-not-allowed
         ${formatPrice ? "pl-9" : "pl-4"}
-       
+  
       `}
       />
       <label
@@ -61,7 +63,7 @@ const Input = ({
         peer-placeholder-shown:translate-y-0 
         peer-focus:scale-75
         peer-focus:-translate-y-4
-    
+
       `}
       >
         {label}
@@ -71,3 +73,14 @@ const Input = ({
 };
 
 export default Input;
+
+
+
+// ${errors[id] ? "border-rose-500" : "border-neutral-300"}
+// ${errors[id] ? "focus:border-rose-500" : "focus:border-black"}
+
+
+
+
+// label
+// ${errors[id] ? 'text-rose-500' : 'text-zinc-400'}
