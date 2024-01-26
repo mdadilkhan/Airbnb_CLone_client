@@ -9,33 +9,33 @@ const initialState={
 }
 
 
-const userSLice=createSlice({
-    name: 'user',
+const userLoginSlice=createSlice({
+    name: 'userLogin',
     initialState,
     reducers:{
-        signInStart:(state)=>{
+        loginStart:(state)=>{
           state.loading=true;
         },
-        signInSuccess:(state,action)=>{
+        loginSuccess:(state,action)=>{
             state.currentUser=action.payload
             state.loading=false
             state.error=false
         },
-        signInFailure:(state,action)=>{
+        loginFailure:(state,action)=>{
             state.loading=true
             state.error=action.payload
         },
-        onOpen:(state)=>{
+        onOpenLogin:(state)=>{
             state.isOpen=true
         },
-        onClose:(state)=>{
+        onCloseLogin:(state)=>{
             state.isOpen=false
         }
     }
 })
 
 // these are action we are exporting to be used for dispatching action
-export const {signInStart,signInSuccess,signInFailure,onOpen,onClose}=userSLice.actions
+export const {loginStart,loginSuccess,loginFailure,onOpenLogin,onCloseLogin}=userLoginSlice.actions
 
 // now we need to export the reducer to be user in the root reducer fo the store
-export default userSLice.reducer;
+export default userLoginSlice.reducer;

@@ -3,9 +3,11 @@ import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "./Avatar";
 import MenuItem from "./MenuItem";
 import {useDispatch} from 'react-redux'
-import { onClose,onOpen } from '../redux/slices/userSlice';
+// import { onClose,onOpen } from '../redux/slices/userRegisterSlice';
+import { onOpenRegister,onCloseRegister} from '../redux/slices/userRegisterSlice'
+import {onOpenLogin,onCloseLogin} from '../redux/slices/userLoginSlice'
+
 const UserMenu = () => {
-  const dispatch=useDispatch()
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -33,8 +35,8 @@ const UserMenu = () => {
         <div className="absolute rounded-xl shadow-md md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
           <div className="flex flex-col cursor-pointer">
             <>
-              <MenuItem onClick={()=>{alert("login")}} label={"Login"} />
-              <MenuItem onClick={onOpen} label={"Signup"} />
+              <MenuItem onClick={onOpenLogin}  label={"Login"} />
+              <MenuItem onClick={onOpenRegister} label={"Signup"} />
               {/* <MenuItem onClick={()=>{alert("Logout")}} label={"Logout"} /> */}
             </>
           </div>

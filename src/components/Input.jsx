@@ -7,8 +7,8 @@ const Input = ({
   disabled,
   formatPrice,
   required,
-//   register,
-//   error,
+  onChange,
+  error,
 }) => {
 
     console.log(id,label,type,disabled,formatPrice,required);
@@ -28,9 +28,9 @@ const Input = ({
       <input
         id={id}
         disabled={disabled}
-        // {...register(id, { required })}
-        placeholder=" "
+        placeholder=""
         type={type}
+        onChange={onChange}
         className={`
         peer
         w-full
