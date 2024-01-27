@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import axios from "axios";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
@@ -6,7 +6,6 @@ import { URL } from "../../config";
 import Modal from "./Modal";
 import {
   onCloseRegister,
-  onOpenRegister,
 } from "../redux/slices/userRegisterSlice";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +13,10 @@ import Heading from "./Heading";
 import Input from "./Input";
 import toast from "react-hot-toast";
 import Button from "./Button";
+import handleGoogleLogin from "../OAuth/googleLogin";
+import handleGithubLogin from "../OAuth/githubLogin";
+
+
 const RegisterModal = () => {
   const dispatch = useDispatch();
   const { isOpen } = useSelector((state) => state.userRegister);
@@ -83,7 +86,8 @@ const RegisterModal = () => {
           label="Continue With Google"
           icon={FcGoogle}
           onClick={() => {
-            alert("continue with google");
+            handleGoogleLogin()
+            dispatch(onCloseRegister())
           }}
         />
         <Button
@@ -91,7 +95,7 @@ const RegisterModal = () => {
           label="Continue With Github"
           icon={AiFillGithub}
           onClick={() => {
-            alert("continue with github");
+            handleGithubLogin()
           }}
         />
         <div

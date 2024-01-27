@@ -6,10 +6,16 @@ import { URL } from "../../config";
 import Modal from "./Modal";
 import { onCloseLogin } from "../redux/slices/userLoginSlice";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  onCloseRegister,
+} from "../redux/slices/userRegisterSlice";
 import Heading from "./Heading";
 import Input from "./Input";
 import toast from "react-hot-toast";
 import Button from "./Button";
+import handleGoogleLogin from "../OAuth/googleLogin";
+import handleGithubLogin from "../OAuth/githubLogin";
+
 const LoginModal = () => {
   const dispatch = useDispatch();
   const { isOpen } = useSelector((state) => state.userLogin);
@@ -80,7 +86,8 @@ const LoginModal = () => {
           label="Continue With Google"
           icon={FcGoogle}
           onClick={() => {
-            alert("continue with google");
+            handleGoogleLogin()
+            dispatch(onCloseRegister())
           }}
         />
         <Button
@@ -88,7 +95,7 @@ const LoginModal = () => {
           label="Continue With Github"
           icon={AiFillGithub}
           onClick={() => {
-            alert("continue with github");
+            handleGithubLogin()
           }}
         />
         <div
