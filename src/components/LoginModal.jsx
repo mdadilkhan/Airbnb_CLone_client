@@ -1,72 +1,76 @@
-import React, { useState } from 'react'
-import axios from 'axios';
-import { AiFillGithub } from 'react-icons/ai';
-import { FcGoogle } from 'react-icons/fc'
-import { URL } from '../../config';
-import Modal from './Modal';
-import { onCloseLogin,onOpenLogin } from '../redux/slices/userLoginSlice';
-import { useDispatch,useSelector } from 'react-redux';
-import Heading from './Heading';
-import Input from './Input';
-import toast from 'react-hot-toast';
-import Button from './Button';
+import  { useState } from "react";
+import axios from "axios";
+import { AiFillGithub } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
+import { URL } from "../../config";
+import Modal from "./Modal";
+import { onCloseLogin } from "../redux/slices/userLoginSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Heading from "./Heading";
+import Input from "./Input";
+import toast from "react-hot-toast";
+import Button from "./Button";
 const LoginModal = () => {
-    const dispatch=useDispatch()
-   const {isOpen} = useSelector((state)=>state.userLogin)
-   const [formData,setFormData]=useState({})
-   const [isLoading,setIsLoading]=useState(false)
+  const dispatch = useDispatch();
+  const { isOpen } = useSelector((state) => state.userLogin);
+  const [formData, setFormData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
 
-   const handleChange=(e)=>{
-    setFormData({...formData,[e.target.id]: e.target.value})
-   }
-
-console.log("inside body",formData);
-   const handleSubmit=()=>{
-    //   e.preventDefault();
-      setIsLoading(true);
-      axios.post(`${URL}/login`,formData)
-      .then((res)=>{
-        console.log("res",res);
-        setIsLoading(false)
-        toast.success('Login SuccessFul')
-        dispatch(onCloseLogin())
-
-      }).catch((error)=>{
-        console.log(error);
-        toast.error('something went wrong')
-      }).finally(()=>{
-        setIsLoading(false);
+  const handleSubmit = () => {
+    setIsLoading(true);
+    axios
+      .post(`${URL}/login`, formData)
+      .then((res) => {
+        if (res.status === 200) {
+          console.log("res", res);
+          setIsLoading(false);
+          toast.success("Login SuccessFul");
+          dispatch(onCloseLogin());
+          window.location.reload();
+        }
       })
-   }
+      .catch((error) => {
+        console.log(error.status);
+        if (error.response.status === 404) {
+          toast.error("User Not Found");
+        } else if (error.response.status === 401) {
+          toast.error("Invalid Credential");
+        } else {
+          toast.error("Something went wrong");
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
-
-  const bodyContent=()=>{
-    return(
-        <div className='flex flex-col gap-4'>
-            <Heading
-                title="Welcome back"
-                subtitle="Login to your account!"
-            />
-            <Input 
-                id="email"
-                label="Email"
-                type="email"
-                disabled={isLoading}
-                required
-                onChange={handleChange}
-            />
-            <Input 
-                id="password"
-                label="Password"
-                type="password"
-                disabled={isLoading}
-                required
-                onChange={handleChange}
-            />
-        </div>
-    )
-  }
+  const bodyContent = () => {
+    return (
+      <div className="flex flex-col gap-4">
+        <Heading title="Welcome back" subtitle="Login to your account!" />
+        <Input
+          id="email"
+          label="Email"
+          type="email"
+          disabled={isLoading}
+          required
+          onChange={handleChange}
+        />
+        <Input
+          id="password"
+          label="Password"
+          type="password"
+          disabled={isLoading}
+          required
+          onChange={handleChange}
+        />
+      </div>
+    );
+  };
   const footerContent = () => {
     return (
       <div className="flex flex-col gap-4 mt-3">
@@ -114,18 +118,17 @@ console.log("inside body",formData);
   };
 
   return (
-    <Modal 
+    <Modal
       disabled={isLoading}
-      isOpen={isOpen} 
+      isOpen={isOpen}
       title="Login"
       actionLabel="Continue"
-      onClose={onCloseLogin} 
+      onClose={onCloseLogin}
       onSubmit={handleSubmit}
       body={bodyContent}
       footer={footerContent}
-      /> 
-     
-  )
-}
+    />
+  );
+};
 
-export default LoginModal
+export default LoginModal;
