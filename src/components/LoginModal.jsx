@@ -87,7 +87,7 @@ const LoginModal = () => {
           icon={FcGoogle}
           onClick={() => {
             handleGoogleLogin()
-            dispatch(onCloseRegister())
+            dispatch(onCloseLogin())
           }}
         />
         <Button
@@ -96,6 +96,7 @@ const LoginModal = () => {
           icon={AiFillGithub}
           onClick={() => {
             handleGithubLogin()
+            dispatch(onCloseLogin())
           }}
         />
         <div

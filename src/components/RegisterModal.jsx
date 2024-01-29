@@ -96,6 +96,7 @@ const RegisterModal = () => {
           icon={AiFillGithub}
           onClick={() => {
             handleGithubLogin()
+            dispatch(onCloseRegister())
           }}
         />
         <div

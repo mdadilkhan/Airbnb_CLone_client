@@ -40,10 +40,12 @@ const App = () => {
 
   return (
     <>
+      
       <ToasterProvider />
       <RegisterModal />
       <LoginModal />
       <Navbar />
+      
     </>
   );
 };

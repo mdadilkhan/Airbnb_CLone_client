@@ -2,6 +2,8 @@ import AirbnbLogo from "../assets/AirbnbLogo.png";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
 import Container from "./Container";
+import Categories from "./Categories";
+import { BrowserRouter } from "react-router-dom";
 
 
 
@@ -28,6 +30,10 @@ const Navbar = () => {
           </div>
         </Container>
       </div>
+      {/* <BrowserRouter>
+        
+      </BrowserRouter> */}
+      <Categories/>
     </div>
   );
 };
